@@ -3,11 +3,14 @@
   {{- partial "head.html" . -}}
   <body>
     {{- block "header" . }}
-      {{- partial "header.html" . -}}
+      <header>
+          <h1>{{ .Site.Title }}</h1>
+      </header>
     {{- end -}}
     {{- block "main" . }}{{- end }}
     {{- block "footer" . }}
-      {{- partial "footer.html" . -}}
+      <footer>
+      </footer>
     {{- end -}}
 
     {{- partial "custom_body.html" . -}}
