@@ -1,0 +1,24 @@
+{{ define "header" }}
+    <header>
+        <h1>{{ .Title }}</h1>
+    </header>
+{{ end }}
+{{ define "main" }}
+    <main>
+        {{ $pages := where (where site.RegularPages "Type" "in" site.Params.mainSections) "Params.hidden" "!=" true -}}
+        {{- range (.Paginate $pages).Pages -}}
+        <article>
+            <header>
+                <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+            </header>
+
+            <section>{{ .Summary | safeHTML }}</section>
+
+            <footer>
+                <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+            </footer>
+        </article>
+        {{- end -}}
+        {{- partial "pagination.html" . }}
+    </main>
+{{ end }}
