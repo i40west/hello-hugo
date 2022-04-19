@@ -3,29 +3,30 @@
         <h1>{{ .Title }}</h1>
     </header>
     <main>
-    {{ with .Content }}
-    <article>
-        {{ . }}
-    </article>
-    {{ end }}
-
-    <section>
-        {{ $pages := where .Pages "Params.hidden" "!=" true}}
-        {{ range (.Paginate $pages).Pages }}
         <article>
-            <header>
-                <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-            </header>
+            {{ with .Content }}
+            <section>
+                {{ . }}
+            </section>
+            {{ end }}
 
-            <section>{{ .Summary | safeHTML }}</section>
+            <section>
+                {{ $pages := where .Pages "Params.hidden" "!=" true}}
+                {{ range (.Paginate $pages).Pages }}
+                <article>
+                    <header>
+                        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+                    </header>
 
-            <footer>
-                <span>{{ .Date.Format "Jan 2, 2006" }}</span>
-            </footer>
+                    <section>{{ .Summary | safeHTML }}</section>
+
+                    <footer>
+                        <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+                    </footer>
+                </article>
+                {{- end -}}
+                {{ partial "pagination.html" . }}
+            </section>
         </article>
-        {{- end -}}
-        {{ partial "pagination.html" . }}
-    </section>
     </main>
-
 {{ end }}

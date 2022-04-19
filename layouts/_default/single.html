@@ -1,14 +1,15 @@
 {{ define "main" }}
     <main>
-    <article>
-        <header>
-            <h1>{{ .Title }}</h1>
-        </header>
-        <section>
-            {{ .Content }}
-        </section>
-        <footer>
-            <span>{{ .Date.Format "Jan 2, 2006" }}</span>
-        </footer>
-    </article>
+        <article>
+            <header>
+                <h1>{{ .Title }}</h1>
+            </header>
+            <section>
+                {{ .Content }}
+            </section>
+            <footer>
+                <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+            </footer>
+        </article>
+    </main>
 {{ end }}
