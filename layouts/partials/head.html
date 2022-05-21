@@ -18,6 +18,10 @@
 <meta name="MobileOptimized" content="320">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+{{- range .Param "preloadFonts" }}
+<link rel="preload" href="{{ . }}" as="font">
+{{- end }}
+
 {{- partial "resource.html" (dict "context" $ "type" "css" "filename" "css/style.css") }}
 
 {{ template "_internal/opengraph.html" . -}}
