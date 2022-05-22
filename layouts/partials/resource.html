@@ -1,22 +1,32 @@
-{{- $resource := resources.Get .filename -}}
-
-{{- if $resource -}}
-    {{- $resource := $resource | resources.ExecuteAsTemplate .filename .context -}}
-    {{- if hugo.IsProduction -}}
-        {{- $resource = $resource | resources.Minify -}}
+{{- $context := .context -}}
+{{- $resource := slice -}}
+{{- $output := false -}}
+{{- if reflect.IsSlice .filename -}}
+    {{- range .filename -}}
+        {{- warnf . -}}
+        {{- $resource = $resource | append ((resources.Get .) | resources.ExecuteAsTemplate . $context) -}}
     {{- end -}}
-    {{- $resource = $resource | resources.Fingerprint "sha256" -}}
+    {{- $output = $resource | resources.Concat "css/styles.css" -}}
+{{- else -}}
+    {{- $output = ((resources.Get .filename) | resources.ExecuteAsTemplate .filename .context) -}}
+{{- end -}}
+
+{{- if $output -}}
+    {{- if hugo.IsProduction -}}
+        {{- $output = $output | resources.Minify -}}
+    {{- end -}}
+    {{- $output = $output | resources.Fingerprint "sha256" -}}
 
     {{- if eq .type "css" -}}
-        <link rel="stylesheet" href="{{ $resource.Permalink }}" integrity="{{ $resource.Data.Integrity }}">
+        <link rel="stylesheet" href="{{ $output.Permalink }}" integrity="{{ $output.Data.Integrity }}">
     {{- else if eq .type "js" -}}
-        <script src="{{ $resource.Permalink }}" type="text/javascript" charset="utf-8" integrity="{{ $resource.Data.Integrity }}"></script>
+        <script src="{{ $output.Permalink }}" type="text/javascript" charset="utf-8" integrity="{{ $output.Data.Integrity }}"{{ if .defer }} defer{{ end }}{{ if .async }} async{{ end }}></script>
     {{ end -}}
 <!-- Failing that, look in static files -->
 {{- else -}}
     {{- if eq .type "css" -}}
         <link rel="stylesheet" href="{{ .filename | absURL }}">
     {{ else if eq .type "js" -}}
-        <script src="{{ .filename | absURL }}" type="text/javascript" charset="utf-8"></script>
+        <script src="{{ .filename | absURL }}" type="text/javascript" charset="utf-8"{{ if .defer }} defer{{ end }}{{ if .async }} async{{ end }}></script>
     {{ end -}}
 {{- end -}}
