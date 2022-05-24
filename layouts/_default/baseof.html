@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-  {{- partial "head.html" . -}}
-  <body>
-    {{- block "header" . }}
-      <header>
-          <h1>{{ .Site.Title }}</h1>
-      </header>
-    {{- end -}}
-    {{- block "main" . }}{{- end }}
-    {{- block "footer" . }}
-      <footer>
-      </footer>
-    {{- end -}}
+{{- partial "head.html" . }}
+<body>
+{{- block "header" . }}
+    <header>
+        <h1>{{ .Site.Title }}</h1>
+    </header>
+{{- end -}}
+{{- block "main" . }}{{- end }}
+{{- block "footer" . }}
+    <footer>
+    </footer>
+{{- end -}}
 
-    {{- partial "custom_body.html" . -}}
-  </body>
+{{- partial "custom_body.html" . -}}
+</body>
 </html>
