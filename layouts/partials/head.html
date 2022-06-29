@@ -18,7 +18,7 @@
 
 {{- partial "resource.html" (dict "context" $ "type" "css" "filename" "css/style.css") }}
 
-{{ template "_internal/opengraph.html" . -}}
+{{ partial "opengraph.html" . -}}
 
 {{- with .Param "app_id" }}
 <meta name="apple-itunes-app" content="app-id={{ . }}">
