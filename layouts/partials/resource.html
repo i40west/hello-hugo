@@ -18,9 +18,9 @@
     {{- $output = $output | resources.Fingerprint "sha256" -}}
 
     {{- if eq .type "css" -}}
-        <link rel="stylesheet" href="{{ $output.Permalink }}" integrity="{{ $output.Data.Integrity }}">
+        <link rel="stylesheet" href="{{ $output.RelPermalink }}" integrity="{{ $output.Data.Integrity }}">
     {{- else if eq .type "js" -}}
-        <script src="{{ $output.Permalink }}" type="text/javascript" charset="utf-8" integrity="{{ $output.Data.Integrity }}"{{ if .defer }} defer{{ end }}{{ if .async }} async{{ end }}></script>
+        <script src="{{ $output.RelPermalink }}" type="text/javascript" charset="utf-8" integrity="{{ $output.Data.Integrity }}"{{ if .defer }} defer{{ end }}{{ if .async }} async{{ end }}></script>
     {{ end -}}
 <!-- Failing that, look in static files -->
 {{- else -}}
