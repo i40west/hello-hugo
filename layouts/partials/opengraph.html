@@ -1,7 +1,5 @@
 {{- $title := .Title -}}
-{{- if $title -}}
-    {{- with .Site.Params.title -}}{{- $title = printf "%s | %s" $title . -}}{{- end -}}
-{{- else -}}
+{{- if not $title -}}
     {{- with .Site.Params.title -}}{{- $title = . -}}{{- end -}}
 {{- end -}}
 
@@ -9,6 +7,7 @@
 <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
+{{ with .Site.Params.title }}<meta property="og:site_name" content="{{ . }}">{{ end }}
 
 {{/* This should be set to attempt to use an image size we are generating anyway. */}}
 {{- $targetsize := mul 2 (.Page.Param "markup_image_size" | default 640) -}}
@@ -40,7 +39,6 @@
 
 {{- with .Params.audio }}<meta property="og:audio" content="{{ . }}">{{ end }}
 {{- with .Params.locale }}<meta property="og:locale" content="{{ . }}">{{ end }}
-{{- with .Site.Params.title }}<meta property="og:site_name" content="{{ . }}">{{ end }}
 {{- with .Params.videos }}{{- range . }}
 <meta property="og:video" content="{{ . | absURL }}">
 {{ end }}{{ end }}
