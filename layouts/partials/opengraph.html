@@ -10,7 +10,7 @@
 {{ with .Site.Params.title }}<meta property="og:site_name" content="{{ . }}">{{ end }}
 
 {{/* This should be set to attempt to use an image size we are generating anyway. */}}
-{{- $targetsize := mul 2 (.Page.Param "markup_image_size" | default 640) -}}
+{{- $targetsize := mul 2 (.Page.Param "markupImageSize" | default 640) -}}
 
 {{- with $.Params.images -}}
 {{- range first 3 . -}}
