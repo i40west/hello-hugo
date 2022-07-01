@@ -1,12 +1,12 @@
 {{ define "main" }}
     <main>
         <article>
-            <h2>{{ .Title }}</h2>
+            <h1>{{ .Title }}</h1>
             <section>
                 {{ .Content }}
             </section>
             <footer>
-                <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
             </footer>
         </article>
     </main>
