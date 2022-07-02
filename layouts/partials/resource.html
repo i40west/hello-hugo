@@ -3,7 +3,6 @@
 {{- $output := false -}}
 {{- if reflect.IsSlice .filename -}}
     {{- range .filename -}}
-        {{- warnf . -}}
         {{- $resource = $resource | append ((resources.Get .) | resources.ExecuteAsTemplate . $context) -}}
     {{- end -}}
     {{- $output = $resource | resources.Concat "css/styles.css" -}}
